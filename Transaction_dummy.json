@@ -1,0 +1,18 @@
+#TRANSFER
+  from id(sender)
+  to id(receiver
+  amount
+  timestamp
+
+#BALANCE MUTATION
+  user id
+  type -credit -debit
+  amount
+  timestamp
+
+
+  #process
+  sender's balance -= amount
+  receiver's balance += amount
+
+  BEBAS BIAYA KIRIM

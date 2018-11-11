@@ -1,0 +1,18 @@
+[
+    {
+        "id": "celine",
+        "name": "celine",
+        "balance": 0,
+        "age": 61,
+        "pin": "2312132",
+        "status": "active"
+    },
+    {
+        "id": "aboi",
+        "name": "leon",
+        "balance": 0,
+        "age": 18,
+        "pin": "12312132132231231",
+        "status": "inactive"
+    }
+]
