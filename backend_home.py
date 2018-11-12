@@ -4,7 +4,7 @@ import io
 import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user
-
+from model.admin import Admin, load_admins, admin_add, admin_remove
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -26,7 +26,9 @@ def print_menu():
         5. Cek saldo user
         6. Print list rekening
         7. Cek history transaksi user
-        8. Admin
+        8. Add admin
+        9. Remove admin
+        10. List admin
         """)
 
 
@@ -50,7 +52,11 @@ def main():
     elif user_input == 7:
         history_transaksi_user()
     elif user_input == 8:
-        admin()
+        add_admin()
+    elif user_input == 9:
+        remove_admin()
+    elif user_input == 10:
+        list_admin()
 
 
 def input_range():
@@ -134,8 +140,31 @@ def history_transaksi_user():
     pass
 
 
-def admin():
-    print("")
+def add_admin():
+    admins = load_admins()
+    admin_name = input("Nama lengkap: ")
+    admin_age = int(input("Umur: "))
+    while True:
+        admin_id = input("Id: ")
+        if admin_id not in [admin.id for admin in admins]:
+            break
+        else:
+            print("Id telah digunakan")
+    # validasi pass
+    admin_password = input("Password: ")
+    admin = Admin(admin_id, admin_name, admin_password, admin_age)
+    admin_add(admin)
+
+def remove_admin():
+    admins = load_admins()
+    admin_id = input("Masukkan Id: ")
+    if admin_id in [admin.id for admin in admins]:
+        admin_remove(admin_id)
+    else:
+        print("Id tidak ditemukan")
+
+def list_admin():
+    pass
 
 
 if __name__ == '__main__':
