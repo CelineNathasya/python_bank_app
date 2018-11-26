@@ -3,7 +3,7 @@ import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
 from model.admin import Admin, load_admins, admin_add, admin_remove
-from helper import validate_password
+from helper import validate_password, input_int, input_alphabet
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -18,18 +18,19 @@ def startupCheck():
 
 def print_menu():
     print("""
-        1. Add rekening
-        2. Remove rekening
-        3. Edit rekening
-        4. Blok rekening
-        5. Un-blok rekening
-        6. Cek saldo user
-        7. Print list rekening
-        8. Cek history transaksi user
-        9. Add admin
-        10. Remove admin
-        11. List admin
-        """)
+    1. Add rekening
+    2. Remove rekening
+    3. Edit rekening
+    4. Blok rekening
+    5. Un-blok rekening
+    6. Cek saldo user
+    7. Print list rekening
+    8. Cek history transaksi user
+    9. Add admin
+    10. Remove admin
+    11. List admin
+    12. Exit
+    """)
 
 
 # selection
@@ -37,7 +38,7 @@ def main():
     startupCheck()
     while True:
         print_menu()
-        user_input = input_range()
+        user_input = input_int("Masukkan pilihan anda: ")
         if user_input == 1:
             add_rekening()
         elif user_input == 2:
@@ -60,30 +61,15 @@ def main():
             remove_admin()
         elif user_input == 11:
             list_admin()
-        else: 
-            print("")
-
-
-
-def input_range():
-    """
-    request user input with validation that return an int
-    will loop until valid input entered
-    :return:
-    """
-    while True:
-        try:
-            return int(input("Masukkan pilihan anda: "))
-        except:
-            print("Maaf, terjadi kesalahan. Silahkan ulangi lagi.")
-
+        elif user_input == 12:
+            break
 
 def add_rekening():
     users = load_users()
-    user_name = input("Nama lengkap: ")
-    user_age = int(input("Umur: "))
+    user_name = input_alphabet("Nama lengkap: ")
+    user_age = input_int("Umur: ")
     while True:
-        user_id = input("Id: ")
+        user_id = input_alphabet("Id: ")
         if user_id not in [user.id for user in users]:
             break
         else:
@@ -96,26 +82,28 @@ def add_rekening():
 
 def remove_rekening():
     users = load_users()
-    user_id = input("Masukkan Id: ")
+    user_id = input_alphabet("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         remove_user(user_id)
+        print("Rekening berhasil dihapus")
     else:
         print("Id tidak ditemukan")
 
 
 def edit_rekening():
     users = load_users()
-    user_id = input("Masukkan Id:")
+    user_id = input_alphabet("Masukkan Id:")
     if user_id in [user.id for user in users]:
         user_new_pin = input("Masukkan pin baru: ")
         edit_user(user_id, user_new_pin)
+        print("Rekening berhasil diedit")
     else:
         print("Id tidak ditemukan")
 
 
 def blok_rekening():
     users = load_users()
-    user_id = input("Masukkan Id: ")
+    user_id = input_alphabet("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         block_user(user_id)
         print("Blok berhasil")
@@ -124,7 +112,7 @@ def blok_rekening():
 
 def unblok_rekening():
     users = load_users()
-    user_id = input("Masukkan Id: ")
+    user_id = input_alphabet("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         unblock_user(user_id)
         print("Unblock berhasil")
@@ -133,7 +121,7 @@ def unblok_rekening():
 
 def cek_saldo_user():
     users = load_users()
-    user_id = input("Masukkan Id: ")
+    user_id = input_alphabet("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         for user in users:
             if user_id== user.id:
@@ -157,29 +145,32 @@ def history_transaksi_user():
 
 def add_admin():
     admins = load_admins()
-    admin_name = input("Nama lengkap: ")
+    admin_name = input_alphabet("Nama lengkap: ")
     admin_age = int(input("Umur: "))
     while True:
-        admin_id = input("Id: ")
+        admin_id = input_alphabet("Id: ")
         if admin_id not in [admin.id for admin in admins]:
             break
         else:
             print("Id telah digunakan")
-    # validasi pass
     admin_password = validate_password("Password: ")
     admin = Admin(admin_id, admin_name, admin_password, admin_age)
     admin_add(admin)
 
 def remove_admin():
     admins = load_admins()
-    admin_id = input("Masukkan Id: ")
+    admin_id = input_alphabet("Masukkan Id: ")
     if admin_id in [admin.id for admin in admins]:
         admin_remove(admin_id)
+        print("Admin berhasil dihapus")
     else:
         print("Id tidak ditemukan")
 
 def list_admin():
-    pass
+    admins = load_admins()
+    print(f"{'No':>4} {'Id':<10} {'Nama':<10}")
+    for idx, admin in enumerate(admins)  :
+        print(f"{(idx+1):3}. {admin.id:<10} {admin.name:<10}")
 
 
 if __name__ == '__main__':

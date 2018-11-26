@@ -75,6 +75,7 @@ def login():
 
 
 def cek_saldo(data):
+
     print(f'\n\nYour Balance : Rp. {data["balance"]:,.2f}')
 
 def setor(setoran,data):
@@ -117,7 +118,7 @@ def transfer(data):
     list_data = []
     print('======Transfer======')
 
-    target_transfer = input('ID : ')
+    target_transfer = input('ID penerima : ')
     target = False
 
     if data['id'] == target_transfer:   #jika id sender dan receiver sama

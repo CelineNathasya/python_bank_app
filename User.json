@@ -2,17 +2,33 @@
     {
         "id": "celine",
         "name": "celine",
-        "balance": 290000,
+        "balance": 500000,
         "age": 61,
         "pin": "2312132",
+        "status": "active"
+    },
+    {
+        "id": "pius6",
+        "name": "Pius Paskalis Tarigan",
+        "balance": 0,
+        "age": 20,
+        "pin": "12345",
         "status": "inactive"
     },
     {
-        "id": "aboi",
-        "name": "leon",
-        "balance": 20000,
+        "id": "qwerty",
+        "name": "celine",
+        "balance": 200000,
+        "age": 12,
+        "pin": "1234",
+        "status": "active"
+    },
+    {
+        "id": "cel",
+        "name": "celine",
+        "balance": 0,
         "age": 18,
-        "pin": "12312132132231231",
+        "pin": "123456",
         "status": "active"
     }
 ]
