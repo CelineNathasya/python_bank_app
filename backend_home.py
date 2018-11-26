@@ -1,10 +1,9 @@
-# import uuid
-import django.utils.crypto as djID
 import io
 import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user
 from model.admin import Admin, load_admins, admin_add, admin_remove
+from helper import validate_password
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -151,7 +150,7 @@ def add_admin():
         else:
             print("Id telah digunakan")
     # validasi pass
-    admin_password = input("Password: ")
+    admin_password = validate_password("Password: ")
     admin = Admin(admin_id, admin_name, admin_password, admin_age)
     admin_add(admin)
 
