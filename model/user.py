@@ -55,9 +55,15 @@ def block_user(id):
                 user.status = "inactive"
         f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
+def unblock_user(id):
+    users = load_users()
+    with open('User.json', 'w') as f:
+        for user in users:
+            if user.id == id:
+                user.status = "active"
+        f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
 def load_users():
-    
     with open('User.json') as f:
         users = json.load(f)
     #using list comprehension to convert each dictionary to User object

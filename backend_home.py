@@ -1,7 +1,7 @@
 import io
 import json
 import os
-from model.user import User, load_users, add_user, remove_user, edit_user, block_user
+from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
 from model.admin import Admin, load_admins, admin_add, admin_remove
 from helper import validate_password
 
@@ -22,12 +22,13 @@ def print_menu():
         2. Remove rekening
         3. Edit rekening
         4. Blok rekening
-        5. Cek saldo user
-        6. Print list rekening
-        7. Cek history transaksi user
-        8. Add admin
-        9. Remove admin
-        10. List admin
+        5. Un-blok rekening
+        6. Cek saldo user
+        7. Print list rekening
+        8. Cek history transaksi user
+        9. Add admin
+        10. Remove admin
+        11. List admin
         """)
 
 
@@ -45,16 +46,18 @@ def main():
     elif user_input == 4:
         blok_rekening()
     elif user_input == 5:
-        cek_saldo_user()
+        unblok_rekening()
     elif user_input == 6:
-        print_list_rekening()
+        cek_saldo_user()
     elif user_input == 7:
-        history_transaksi_user()
+        print_list_rekening()
     elif user_input == 8:
-        add_admin()
+        history_transaksi_user()
     elif user_input == 9:
-        remove_admin()
+        add_admin()
     elif user_input == 10:
+        remove_admin()
+    elif user_input == 11:
         list_admin()
 
 
@@ -111,9 +114,18 @@ def blok_rekening():
     user_id = input("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         block_user(user_id)
+        print("Blok berhasil")
     else:
         print("Id tidak ditemukan")
 
+def unblok_rekening():
+    users = load_users()
+    user_id = input("Masukkan Id: ")
+    if user_id in [user.id for user in users]:
+        unblock_user(user_id)
+        print("Unblock berhasil")
+    else:
+        print("Id tidak ditemukan")
 
 def cek_saldo_user():
     users = load_users()

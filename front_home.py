@@ -23,8 +23,7 @@ def main():
             system('cls')
             print("\nWelcome, {} ".format(data_user["name"]))
 
-            print('''
-=============================================        
+            print('''     
             1. Cek Saldo                        
             2. Setor                            
             3. Tarik                            
