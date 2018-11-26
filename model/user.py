@@ -57,6 +57,7 @@ def block_user(id):
 
 
 def load_users():
+    
     with open('User.json') as f:
         users = json.load(f)
     #using list comprehension to convert each dictionary to User object

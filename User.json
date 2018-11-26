@@ -2,7 +2,7 @@
     {
         "id": "celine",
         "name": "celine",
-        "balance": 0,
+        "balance": 20000,
         "age": 61,
         "pin": "2312132",
         "status": "active"
