@@ -1,7 +1,7 @@
-from model.user import User, load_users, add_user, remove_user, edit_user, block_user
 from os import system
 import json
 import datetime
+from model.user import User, load_users, add_user, remove_user, edit_user, block_user
 
 def load_user():
     with open('User.json') as f:
@@ -20,6 +20,7 @@ def login():
         system('cls')
         print("{:=^50}".format('Welcome To Bank ITU'))
         print("{:=^50}".format('Login'))
+
         user_id = input("ID    : ")
         user_pin = input("PIN   : ")
         
@@ -56,8 +57,9 @@ def login():
                         print('Your Account has been blocked')
                         print('contact admin!!')
                         system('pause')
+                        block_user(user_id)
                         break
-                        #blok account
+                        
 
                     print('PIN salah')
                     try_again_choice = ['yes',"y","no",'n']    
@@ -66,6 +68,7 @@ def login():
                         try_again = input('Continue (y/n) ? ')
                     if try_again == "n":
                         break
+
         if userid == False:    
             print('ID or PIN Wrong !!')
             system('pause')
@@ -139,7 +142,7 @@ def transfer(data):
             else:
                 print(f'anda melakukan transfer ke {target_transfer}')
                 pin = input('PIN : ')
-                if pin == data['PIN']:
+                if pin == data['pin']:
                     user["balance"] = user['balance'] - nominal
                     for user_target in all_data:
                         if user_target['id'] == target_transfer:
@@ -168,5 +171,4 @@ def transaction_history(nominal,sender,receiver):
 
     with open('history.json','w') as w:
         w.write(json.dumps(data,indent=4))
-
     

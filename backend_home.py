@@ -35,30 +35,34 @@ def print_menu():
 # selection
 def main():
     startupCheck()
-    print_menu()
-    user_input = input_range()
-    if user_input == 1:
-        add_rekening()
-    elif user_input == 2:
-        remove_rekening()
-    elif user_input == 3:
-        edit_rekening()
-    elif user_input == 4:
-        blok_rekening()
-    elif user_input == 5:
-        unblok_rekening()
-    elif user_input == 6:
-        cek_saldo_user()
-    elif user_input == 7:
-        print_list_rekening()
-    elif user_input == 8:
-        history_transaksi_user()
-    elif user_input == 9:
-        add_admin()
-    elif user_input == 10:
-        remove_admin()
-    elif user_input == 11:
-        list_admin()
+    while True:
+        print_menu()
+        user_input = input_range()
+        if user_input == 1:
+            add_rekening()
+        elif user_input == 2:
+            remove_rekening()
+        elif user_input == 3:
+            edit_rekening()
+        elif user_input == 4:
+            blok_rekening()
+        elif user_input == 5:
+            unblok_rekening()
+        elif user_input == 6:
+            cek_saldo_user()
+        elif user_input == 7:
+            print_list_rekening()
+        elif user_input == 8:
+            history_transaksi_user()
+        elif user_input == 9:
+            add_admin()
+        elif user_input == 10:
+            remove_admin()
+        elif user_input == 11:
+            list_admin()
+        else: 
+            print("")
+
 
 
 def input_range():
