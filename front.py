@@ -1,7 +1,7 @@
 from os import system
 import json
 import datetime
-from model.user import User, load_users, add_user, remove_user, edit_user, block_user
+from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance
 
 def load_user():
     with open('User.json') as f:
@@ -10,7 +10,7 @@ def load_user():
 
 def to_json_by_Cy(data):
     with open('User.json','w') as f :
-        json.dump(data,f,indent=4)
+        json.dump(data, f, indent=4)
 
 def login():
     users = load_users()
@@ -35,7 +35,7 @@ def login():
                             break
                         else:
                             print('Login berhasil')
-                            return user.to_dict()
+                            return user
                     else:
                         system('cls')
                         print("{:=^50}".format('Login'))
@@ -49,7 +49,7 @@ def login():
                                 break
                             else:
                                 print('Login berhasil')
-                                return user.to_dict()
+                                return user
                         else:
                             login_fail -= 1
                             
@@ -75,43 +75,46 @@ def login():
 
 
 def cek_saldo(data):
+    all_user = load_users()
+    for user in all_user:
+        if user.id == data.id:
+            print(f'\n\nYour Balance : Rp. {user.balance:,.2f}')
 
-    print(f'\n\nYour Balance : Rp. {data["balance"]:,.2f}')
-
-def setor(setoran,data):
-    all_data = load_user()
-    list_data = []
-    for user in all_data:
-        if user['name'] == data['name']:
-            user['balance'] = setoran + user['balance']
-            print(f'anda telah melakukan transaksi sebesar Rp. {setoran:,.2f}')
-        list_data.append(user)
-    system('pause')          
-    return to_json_by_Cy(list_data)   
+# di abadikan
+# def setor(setoran,data):
+#     all_data = load_user()
+#     list_data = []
+#     for user in all_data:
+#         if user['name'] == data['name']:
+#             edit_balance(user)
+#             print(f'anda telah melakukan transaksi sebesar Rp. {setoran:,.2f}')
+#         list_data.append(user)
+#     system('pause')          
+#     return to_json_by_Cy(list_data)   
     
 
-def tarik(quantity,data):
-    all_data = load_user()
-    list_data = []
-    pin = False
-    if quantity > data['balance']:
-        print('Saldo anda tidak cukup')
-    else :
-        for user in all_data:  
-            if user['id'] == data['id']:
-                user['balance'] = data['balance'] - quantity
-                print(f'Jumlah yang ingin anda tarik {quantity:,.2f}')
-                print('Masukan PIN untuk melanjutkan')
-                user_input = input('PIN : ')
-                if user_input == data['pin']:
-                    pin = True
-                    print('sukses')
-                else:
-                    print('PIN anda salah')  
-            list_data.append(user)
-    system('pause')
-    if pin == True:
-        return to_json_by_Cy(list_data)
+# def tarik(quantity,data):
+#     all_data = load_user()
+#     list_data = []
+#     pin = False
+#     if quantity > data['balance']:
+#         print('Saldo anda tidak cukup')
+#     else :
+#         for user in all_data:  
+#             if user['id'] == data['id']:
+#                 user['balance'] = data['balance'] - quantity
+#                 print(f'Jumlah yang ingin anda tarik {quantity:,.2f}')
+#                 print('Masukan PIN untuk melanjutkan')
+#                 user_input = input('PIN : ')
+#                 if user_input == data['pin']:
+#                     pin = True
+#                     print('sukses')
+#                 else:
+#                     print('PIN anda salah')  
+#             list_data.append(user)
+#     system('pause')
+#     if pin == True:
+#         return to_json_by_Cy(list_data)
 
 def transfer(data):
     all_data = load_user()
@@ -139,9 +142,9 @@ def transfer(data):
             
             nominal = int(input('Jumlah : Rp. '))
             if nominal > data['balance']:
-                print('saldo anda tidak cukup')
+                print('Saldo anda tidak cukup')
             else:
-                print(f'anda melakukan transfer ke {target_transfer}')
+                print(f'Anda melakukan transfer ke {target_transfer}')
                 pin = input('PIN : ')
                 if pin == data['pin']:
                     user["balance"] = user['balance'] - nominal

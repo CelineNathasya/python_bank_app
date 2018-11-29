@@ -45,7 +45,7 @@ def input_int(desc):
         except:
             print("Maaf, terjadi kesalahan input. Silahkan ulangi lagi.")
 
-def input_alphabet(desc):
+def input_string(desc):
     while True:
         user_input = input(desc)
         if user_input == "":

@@ -46,6 +46,25 @@ def edit_user(id, new_pin):
                 user.pin = new_pin
         f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
+def edit_balance(id, amount):
+    users = load_users()
+    with open('User.json', 'w') as f:
+        for user in users:
+            if user.id == id:
+                #tarik
+                if amount < 0 :
+                    if (user.balance + amount) < 0:
+                        print("Saldo tidak mencukupi")
+                    else :
+                        user.balance += amount
+                        print("Penarikan berhasil")
+                #setor
+                else :
+                    user.balance += amount
+                    print("Penyetoran berhasil")
+                # user.balance += amount
+        f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
+
 
 def block_user(id):
     users = load_users()

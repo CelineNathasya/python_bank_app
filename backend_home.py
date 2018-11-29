@@ -3,7 +3,7 @@ import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
 from model.admin import Admin, load_admins, admin_add, admin_remove
-from helper import validate_password, input_int, input_alphabet
+from helper import validate_password, input_int, input_string
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -66,10 +66,10 @@ def main():
 
 def add_rekening():
     users = load_users()
-    user_name = input_alphabet("Nama lengkap: ")
+    user_name = input_string("Nama lengkap: ")
     user_age = input_int("Umur: ")
     while True:
-        user_id = input_alphabet("Id: ")
+        user_id = input_string("Id: ")
         if user_id not in [user.id for user in users]:
             break
         else:
@@ -82,7 +82,7 @@ def add_rekening():
 
 def remove_rekening():
     users = load_users()
-    user_id = input_alphabet("Masukkan Id: ")
+    user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         remove_user(user_id)
         print("Rekening berhasil dihapus")
@@ -92,7 +92,7 @@ def remove_rekening():
 
 def edit_rekening():
     users = load_users()
-    user_id = input_alphabet("Masukkan Id:")
+    user_id = input_string("Masukkan Id:")
     if user_id in [user.id for user in users]:
         user_new_pin = input("Masukkan pin baru: ")
         edit_user(user_id, user_new_pin)
@@ -103,7 +103,7 @@ def edit_rekening():
 
 def blok_rekening():
     users = load_users()
-    user_id = input_alphabet("Masukkan Id: ")
+    user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         block_user(user_id)
         print("Blok berhasil")
@@ -112,7 +112,7 @@ def blok_rekening():
 
 def unblok_rekening():
     users = load_users()
-    user_id = input_alphabet("Masukkan Id: ")
+    user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         unblock_user(user_id)
         print("Unblock berhasil")
@@ -121,7 +121,7 @@ def unblok_rekening():
 
 def cek_saldo_user():
     users = load_users()
-    user_id = input_alphabet("Masukkan Id: ")
+    user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         for user in users:
             if user_id== user.id:
@@ -145,10 +145,10 @@ def history_transaksi_user():
 
 def add_admin():
     admins = load_admins()
-    admin_name = input_alphabet("Nama lengkap: ")
+    admin_name = input_string("Nama lengkap: ")
     admin_age = int(input("Umur: "))
     while True:
-        admin_id = input_alphabet("Id: ")
+        admin_id = input_string("Id: ")
         if admin_id not in [admin.id for admin in admins]:
             break
         else:
@@ -159,7 +159,7 @@ def add_admin():
 
 def remove_admin():
     admins = load_admins()
-    admin_id = input_alphabet("Masukkan Id: ")
+    admin_id = input_string("Masukkan Id: ")
     if admin_id in [admin.id for admin in admins]:
         admin_remove(admin_id)
         print("Admin berhasil dihapus")
