@@ -1,12 +1,12 @@
 import re
 import smtplib
  
-def send_email(email):
+def send_email(email, desc):
     gmail_user = "sayacintais2018@gmail.com"
     gmail_pwd = "IS20182018"
     TO = email
     SUBJECT = "Transaksi Bank ITU"
-    TEXT = "Testing"
+    TEXT = desc
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()

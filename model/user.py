@@ -2,13 +2,14 @@ import json
 
 class User:
 
-    def __init__(self, id, name, pin, age, balance, status):
+    def __init__(self, id, name, pin, age, balance, status, email):
         self.id = id
         self.name = name
         self.pin = pin
         self.age = age
         self.balance = balance
         self.status = status
+        self.email = email
 
     def to_dict(self):
         return {
@@ -17,7 +18,8 @@ class User:
             'balance': self.balance,
             'age': self.age,
             'pin': self.pin,
-            'status': self.status
+            'status': self.status,
+            'email': self.email
         }
 
 
@@ -51,18 +53,7 @@ def edit_balance(id, amount):
     with open('User.json', 'w') as f:
         for user in users:
             if user.id == id:
-                #tarik
-                if amount < 0 :
-                    if (user.balance + amount) < 0:
-                        print("Saldo tidak mencukupi")
-                    else :
-                        user.balance += amount
-                        print("Penarikan berhasil")
-                #setor
-                else :
-                    user.balance += amount
-                    print("Penyetoran berhasil")
-                # user.balance += amount
+                user.balance += amount
         f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
 
@@ -86,7 +77,7 @@ def load_users():
     with open('User.json') as f:
         users = json.load(f)
     #using list comprehension to convert each dictionary to User object
-    return [User(user['id'], user['name'], user['pin'], user['age'], user['balance'], user['status']) for user in users]
+    return [User(user['id'], user['name'], user['pin'], user['age'], user['balance'], user['status'], user['email']) for user in users]
 
 
 def convert_User_object_to_dictionary(users):

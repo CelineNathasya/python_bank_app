@@ -1,16 +1,8 @@
 from os import system
 import json
 import datetime
-from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance
-
-def load_user():
-    with open('User.json') as f:
-        data = json.load(f)
-    return data
-
-def to_json_by_Cy(data):
-    with open('User.json','w') as f :
-        json.dump(data, f, indent=4)
+from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance, convert_User_object_to_dictionary
+from helper import send_email
 
 def login():
     users = load_users()
@@ -80,57 +72,21 @@ def cek_saldo(data):
         if user.id == data.id:
             print(f'\n\nYour Balance : Rp. {user.balance:,.2f}')
 
-# di abadikan
-# def setor(setoran,data):
-#     all_data = load_user()
-#     list_data = []
-#     for user in all_data:
-#         if user['name'] == data['name']:
-#             edit_balance(user)
-#             print(f'anda telah melakukan transaksi sebesar Rp. {setoran:,.2f}')
-#         list_data.append(user)
-#     system('pause')          
-#     return to_json_by_Cy(list_data)   
-    
-
-# def tarik(quantity,data):
-#     all_data = load_user()
-#     list_data = []
-#     pin = False
-#     if quantity > data['balance']:
-#         print('Saldo anda tidak cukup')
-#     else :
-#         for user in all_data:  
-#             if user['id'] == data['id']:
-#                 user['balance'] = data['balance'] - quantity
-#                 print(f'Jumlah yang ingin anda tarik {quantity:,.2f}')
-#                 print('Masukan PIN untuk melanjutkan')
-#                 user_input = input('PIN : ')
-#                 if user_input == data['pin']:
-#                     pin = True
-#                     print('sukses')
-#                 else:
-#                     print('PIN anda salah')  
-#             list_data.append(user)
-#     system('pause')
-#     if pin == True:
-#         return to_json_by_Cy(list_data)
-
 def transfer(data):
-    all_data = load_user()
+    all_data = load_users()
     list_data = []
     print('======Transfer======')
 
     target_transfer = input('ID penerima : ')
     target = False
 
-    if data['id'] == target_transfer:   #jika id sender dan receiver sama
+    if data.id == target_transfer:   #jika id sender dan receiver sama
         print("Anda tidak bisa melakukan Transfer ke Rekening sendiri")
         system('pause')
         return False
 
     for x in all_data:
-        if target_transfer == x['id']:
+        if target_transfer == x.id:
             target = True
     if target == False:
         print('ID Tidak ditemukan')
@@ -138,27 +94,30 @@ def transfer(data):
         return False
 
     for user in all_data:
-        if user['id'] == data['id']:
+        if user.id == data.id:
             
             nominal = int(input('Jumlah : Rp. '))
-            if nominal > data['balance']:
+            if nominal > data.balance:
                 print('Saldo anda tidak cukup')
             else:
+                desc_sender = "Anda melakukan transfer kepada\n    Bank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(target_transfer,nominal)
+                desc_receiver = "Anda menerima transfer dari\n    Bank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(user,nominal)
                 print(f'Anda melakukan transfer ke {target_transfer}')
                 pin = input('PIN : ')
-                if pin == data['pin']:
-                    user["balance"] = user['balance'] - nominal
+                if pin == data.pin:
+                    edit_balance(user.id, -nominal)
                     for user_target in all_data:
-                        if user_target['id'] == target_transfer:
-                            user_target['balance'] = user_target['balance'] + nominal
-                            transaction_history(nominal,data['id'],target_transfer)
+                        if user_target.id == target_transfer:
+                            edit_balance(user_target.id, nominal)
+                            transaction_history(nominal,data.id,target_transfer)
+                    send_email(user.email, desc_sender)
+                    send_email(user_target.email, desc_receiver)
                 else:
                     print('PIN anda salah')
         list_data.append(user)
 
     print() 
     system('pause')
-    return to_json_by_Cy(list_data)
     
     
 def transaction_history(nominal,sender,receiver):

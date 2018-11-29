@@ -76,7 +76,8 @@ def add_rekening():
             print("Id telah digunakan")
     #validasi pin
     user_pin = input("Pin: ")
-    user = User(user_id, user_name, user_pin, user_age, 0, "active")
+    user_email = input("Email: ")
+    user = User(user_id, user_name, user_pin, user_age, 0, "active", user_email)
     add_user(user)
 
 

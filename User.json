@@ -1,34 +1,20 @@
 [
     {
         "id": "celine",
-        "name": "celine",
-        "balance": 3021000,
-        "age": 61,
-        "pin": "2312132",
-        "status": "active"
-    },
-    {
-        "id": "pius6",
-        "name": "Pius Paskalis Tarigan",
-        "balance": 0,
-        "age": 20,
-        "pin": "12345",
-        "status": "inactive"
-    },
-    {
-        "id": "qwerty",
-        "name": "celine",
-        "balance": 200000,
+        "name": "celine nathasya",
+        "balance": 1993002000,
         "age": 12,
-        "pin": "1234",
-        "status": "active"
+        "pin": "2312132",
+        "status": "active",
+        "email": "celline.nathasya.lh@gmail.com"
     },
     {
-        "id": "cel",
-        "name": "celine",
-        "balance": 0,
-        "age": 18,
-        "pin": "123456",
-        "status": "active"
+        "id": "celinee",
+        "name": "cell",
+        "balance": 2200000,
+        "age": 15,
+        "pin": "1234",
+        "status": "active",
+        "email": "celine.nathasya.lh@gmail.com"
     }
 ]

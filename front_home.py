@@ -2,7 +2,7 @@ import json
 import getpass
 from os import system
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance
-from front import login, cek_saldo, load_user, transfer
+from front import login, cek_saldo, transfer
 
 # def refresh_user(id):
 #     users = load_users()
@@ -14,15 +14,20 @@ def setor(user):
     amount = int(input('Jumlah Setoran : Rp. '))
     edit_balance(user.id, amount)
     user.balance += amount
+    print("Penyetoran berhasil")
     print(f'Anda telah melakukan penyetoran sebesar Rp. {amount:,.2f}')
     system('pause')
 
 def tarik(user):
     #validation
     amount = int(input('Jumlah Penarikan : Rp. '))
-    edit_balance(user.id, -amount)
-    user.balance -= amount
-    print(f'Anda telah melakukan penarikan sebesar Rp. {amount:,.2f}')
+    if (user.balance - amount) < 0:
+        print("Saldo tidak mencukupi")
+    else :
+        edit_balance(user.id, -amount) 
+        print("Penarikan berhasil")
+        print(f'Anda telah melakukan penarikan sebesar Rp. {amount:,.2f}')
+        user.balance -= amount
     system('pause')
 
 def main():
