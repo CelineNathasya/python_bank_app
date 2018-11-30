@@ -19,7 +19,7 @@ def login():
         for user in users:
             if user_id == user.id:
                 userid = True
-                while login_fail!=0:
+                while login_fail>0:
                     if user_pin == user.pin:
                         if user.status == "inactive":
                             print('Your account is blocked, contact your admin')
@@ -34,7 +34,9 @@ def login():
                         print('Try again, Kesempatan',login_fail)
                         print('ID    :',user_id)
                         user_pin = input_pin("PIN   : ")
-                        if user_pin == user.pin:
+                        if not user_pin:
+                            login_fail = -1
+                        elif user_pin == user.pin:
                             if user.status == "inactive":
                                 print('Your account is blocked, contact your admin')
                                 system("pause")
@@ -43,6 +45,7 @@ def login():
                                 print('Login berhasil')
                                 return user
                         else:
+                            print('PIN salah')
                             login_fail -= 1
                             
                     if login_fail == 0:
@@ -51,8 +54,10 @@ def login():
                         system('pause')
                         block_user(user_id)
                         break
+                    if login_fail == -1:
+                        print('Canceled')
                         
-                    print('PIN salah')
+                  
                     try_again_choice = ['yes',"y","no",'n']    
                     try_again = input('Continue (y/n) ? ')
                     while try_again not in try_again_choice: 
@@ -73,7 +78,6 @@ def cek_saldo(data):
 
 def transfer(data):
     all_data = load_users()
-    list_data = []
     print('======Transfer======')
 
     target_transfer = input_string('ID penerima : ')
@@ -103,7 +107,9 @@ def transfer(data):
                 desc_receiver = "Anda menerima transfer dari\nBank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(user,nominal)
                 print(f'Anda melakukan transfer ke {target_transfer}')
                 pin = input_pin('PIN : ')
-                if pin == data.pin:
+                if not pin:
+                    print('transaksi dibatalkan')
+                elif pin == data.pin:
                     edit_balance(user.id, -nominal)
                     for user_target in all_data:
                         if user_target.id == target_transfer:
@@ -113,7 +119,6 @@ def transfer(data):
                     send_email(user_target.email, desc_receiver)
                 else:
                     print('PIN anda salah')
-        list_data.append(user)
 
     print() 
     system('pause')

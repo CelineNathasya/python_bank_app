@@ -1,6 +1,7 @@
 import re
 import smtplib
- 
+from easygui import passwordbox
+
 def send_email(email, desc):
     gmail_user = "bankITU.18IS01@gmail.com"
     gmail_pwd = "bankITU1234"
@@ -21,7 +22,7 @@ def send_email(email, desc):
 
 def input_password(desc):
     while True:
-        password = input(desc)
+        password = passwordbox(desc)
         if len(password) < 8:
             print("Pastikan jumlah karakter lebih dari 8 karakter")
         elif re.search('[0-9]',password) is None:
@@ -34,21 +35,22 @@ def input_password(desc):
     return password
 
 def input_pin(desc):
-    loop = True
-    while loop:
-        pin = input(desc)
-        if len(pin) != 6:
+    while True:
+        pin = passwordbox(desc)
+        if not pin:
+            return False
+        elif len(pin) != 6:
             print("Jumlah karakter pin harus 6")
         elif pin.isnumeric():
             print("Berhasil")
-            loop = False
+            break
         else:
             print("Pin harus angka")
     return pin
 
-def input_email(email):
+def input_email(desc):
     while True:
-        email = input_string(email)
+        email = input_string(desc)
         if re.search('@', email) is None:
             print("Input valid email")
         else:

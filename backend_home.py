@@ -142,23 +142,35 @@ def print_list_rekening():
 
 
 def history_transaksi_user():
-    pass
+    with open ("History.json") as f:
+        datas = json.load(f)
+        user_id = input_string("id: ")
+        print(f"{'Tanggal':^30} {'Status':6} {'Jumlah':^33} ")
+        for data in datas:
+            if data["ID Sender"] == user_id:
+                print(f"{data['date']:^30} {'kirim':6} {'Rp ':3}{data['nominal']:30,}")
+            elif data["receiver"] == user_id:
+                print(f"{data['date']:^30} {'terima':6} {'Rp ':3}{data['nominal']:30,}")
+
 
 def login_admin():
     admins = load_admins()
-    login = True
-    while login == True:
+    loop = True
+    while loop:
         admin_id = input_string("Id: ")
         for admin in admins:
                 if admin.id == admin_id:
                     admin_pass = input_password("Password: ")
                     if admin.password == admin_pass:
                         print("Logged in as admin")
-                        login = False
+                        loop = False
+                        break
                     else: 
                         print("Password salah")
                 else: 
                     print("Id tidak ditemukan")
+                    break
+        
         
 
 

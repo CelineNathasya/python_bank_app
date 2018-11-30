@@ -2,7 +2,7 @@
     {
         "id": "celine",
         "name": "celine nathasya",
-        "balance": 1849852000,
+        "balance": 19999848053900,
         "age": 12,
         "pin": "231213",
         "status": "active",
@@ -13,8 +13,17 @@
         "name": "cell",
         "balance": 125400000,
         "age": 15,
-        "pin": "123456",
+        "pin": "121212",
         "status": "active",
         "email": "celine.nathasya.lh@gmail.com"
+    },
+    {
+        "id": "kenichi",
+        "name": "Kenichi Xie",
+        "balance": 2000000000,
+        "age": 20,
+        "pin": "061098",
+        "status": "active",
+        "email": "emailpalsu@gmail.com"
     }
 ]

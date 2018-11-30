@@ -4,5 +4,11 @@
         "name": "celine nathasya",
         "age": 25,
         "password": "Hello1234"
+    },
+    {
+        "id": "hahaha",
+        "name": "kenichi :)",
+        "age": 50,
+        "password": "Kenichi1234"
     }
 ]
