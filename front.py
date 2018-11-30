@@ -2,7 +2,7 @@ from os import system
 import json
 import datetime
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance, convert_User_object_to_dictionary
-from helper import send_email
+from helper import send_email, input_int, input_string, input_pin
 
 def login():
     users = load_users()
@@ -13,8 +13,8 @@ def login():
         print("{:=^50}".format('Welcome To Bank ITU'))
         print("{:=^50}".format('Login'))
 
-        user_id = input("ID    : ")
-        user_pin = input("PIN   : ")
+        user_id = input_string("ID    : ")
+        user_pin = input_pin("PIN   : ")
         
         for user in users:
             if user_id == user.id:
@@ -33,7 +33,7 @@ def login():
                         print("{:=^50}".format('Login'))
                         print('Try again, Kesempatan',login_fail)
                         print('ID    :',user_id)
-                        user_pin = input("PIN   : ")
+                        user_pin = input_pin("PIN   : ")
                         if user_pin == user.pin:
                             if user.status == "inactive":
                                 print('Your account is blocked, contact your admin')
@@ -52,12 +52,11 @@ def login():
                         block_user(user_id)
                         break
                         
-
                     print('PIN salah')
                     try_again_choice = ['yes',"y","no",'n']    
                     try_again = input('Continue (y/n) ? ')
                     while try_again not in try_again_choice: 
-                        try_again = input('Continue (y/n) ? ')
+                        try_again = input_string('Continue (y/n) ? ')
                     if try_again == "n":
                         break
 
@@ -77,7 +76,7 @@ def transfer(data):
     list_data = []
     print('======Transfer======')
 
-    target_transfer = input('ID penerima : ')
+    target_transfer = input_string('ID penerima : ')
     target = False
 
     if data.id == target_transfer:   #jika id sender dan receiver sama
@@ -96,14 +95,14 @@ def transfer(data):
     for user in all_data:
         if user.id == data.id:
             
-            nominal = int(input('Jumlah : Rp. '))
+            nominal = input_int('Jumlah : Rp. ')
             if nominal > data.balance:
                 print('Saldo anda tidak cukup')
             else:
-                desc_sender = "Anda melakukan transfer kepada\n    Bank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(target_transfer,nominal)
-                desc_receiver = "Anda menerima transfer dari\n    Bank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(user,nominal)
+                desc_sender = "Anda melakukan transfer kepada\nBank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(target_transfer,nominal)
+                desc_receiver = "Anda menerima transfer dari\nBank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(user,nominal)
                 print(f'Anda melakukan transfer ke {target_transfer}')
-                pin = input('PIN : ')
+                pin = input_pin('PIN : ')
                 if pin == data.pin:
                     edit_balance(user.id, -nominal)
                     for user_target in all_data:

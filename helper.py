@@ -2,8 +2,8 @@ import re
 import smtplib
  
 def send_email(email, desc):
-    gmail_user = "sayacintais2018@gmail.com"
-    gmail_pwd = "IS20182018"
+    gmail_user = "bankITU.18IS01@gmail.com"
+    gmail_pwd = "bankITU1234"
     TO = email
     SUBJECT = "Transaksi Bank ITU"
     TEXT = desc
@@ -19,7 +19,7 @@ def send_email(email, desc):
     server.sendmail(gmail_user, [TO], BODY)
     print ('Email sent!')
 
-def validate_password(desc):
+def input_password(desc):
     while True:
         password = input(desc)
         if len(password) < 8:
@@ -32,6 +32,29 @@ def validate_password(desc):
             print("Berhasil")
             break
     return password
+
+def input_pin(desc):
+    loop = True
+    while loop:
+        pin = input(desc)
+        if len(pin) != 6:
+            print("Jumlah karakter pin harus 6")
+        elif pin.isnumeric():
+            print("Berhasil")
+            loop = False
+        else:
+            print("Pin harus angka")
+    return pin
+
+def input_email(email):
+    while True:
+        email = input_string(email)
+        if re.search('@', email) is None:
+            print("Input valid email")
+        else:
+            print("Berhasil")
+            break
+    return email
 
 def input_int(desc):
     """

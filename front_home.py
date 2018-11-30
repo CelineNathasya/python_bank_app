@@ -3,6 +3,7 @@ import getpass
 from os import system
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance
 from front import login, cek_saldo, transfer
+from helper import input_int, input_string
 
 # def refresh_user(id):
 #     users = load_users()
@@ -10,8 +11,7 @@ from front import login, cek_saldo, transfer
 
 
 def setor(user):
-    #validation
-    amount = int(input('Jumlah Setoran : Rp. '))
+    amount = input_int('Jumlah Setoran : Rp. ')
     edit_balance(user.id, amount)
     user.balance += amount
     print("Penyetoran berhasil")
@@ -19,8 +19,7 @@ def setor(user):
     system('pause')
 
 def tarik(user):
-    #validation
-    amount = int(input('Jumlah Penarikan : Rp. '))
+    amount = input_int('Jumlah Penarikan : Rp. ')
     if (user.balance - amount) < 0:
         print("Saldo tidak mencukupi")
     else :
@@ -46,7 +45,7 @@ def main():
             5. Exit
                ''')
             # try:
-            user_choices = int(input('Your Choices : '))
+            user_choices = input_int('Your Choices : ')
             if user_choices == 1:
                 system('cls')
                 cek_saldo(user)

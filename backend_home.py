@@ -3,7 +3,7 @@ import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
 from model.admin import Admin, load_admins, admin_add, admin_remove
-from helper import validate_password, input_int, input_string
+from helper import input_password, input_int, input_string, input_email, input_pin
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -35,6 +35,7 @@ def print_menu():
 
 # selection
 def main():
+    login_admin()
     startupCheck()
     while True:
         print_menu()
@@ -75,8 +76,8 @@ def add_rekening():
         else:
             print("Id telah digunakan")
     #validasi pin
-    user_pin = input("Pin: ")
-    user_email = input("Email: ")
+    user_pin = input_pin("Pin: ")
+    user_email = input_email("Email: ")
     user = User(user_id, user_name, user_pin, user_age, 0, "active", user_email)
     add_user(user)
 
@@ -95,7 +96,7 @@ def edit_rekening():
     users = load_users()
     user_id = input_string("Masukkan Id:")
     if user_id in [user.id for user in users]:
-        user_new_pin = input("Masukkan pin baru: ")
+        user_new_pin = input_pin("Masukkan pin baru: ")
         edit_user(user_id, user_new_pin)
         print("Rekening berhasil diedit")
     else:
@@ -143,18 +144,35 @@ def print_list_rekening():
 def history_transaksi_user():
     pass
 
+def login_admin():
+    admins = load_admins()
+    login = True
+    while login == True:
+        admin_id = input_string("Id: ")
+        for admin in admins:
+                if admin.id == admin_id:
+                    admin_pass = input_password("Password: ")
+                    if admin.password == admin_pass:
+                        print("Logged in as admin")
+                        login = False
+                    else: 
+                        print("Password salah")
+                else: 
+                    print("Id tidak ditemukan")
+        
+
 
 def add_admin():
     admins = load_admins()
     admin_name = input_string("Nama lengkap: ")
-    admin_age = int(input("Umur: "))
+    admin_age = input_int("Umur: ")
     while True:
         admin_id = input_string("Id: ")
         if admin_id not in [admin.id for admin in admins]:
             break
         else:
             print("Id telah digunakan")
-    admin_password = validate_password("Password: ")
+    admin_password = input_password("Password: ")
     admin = Admin(admin_id, admin_name, admin_password, admin_age)
     admin_add(admin)
 

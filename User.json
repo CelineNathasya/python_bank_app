@@ -2,18 +2,18 @@
     {
         "id": "celine",
         "name": "celine nathasya",
-        "balance": 1993002000,
+        "balance": 1849852000,
         "age": 12,
-        "pin": "2312132",
+        "pin": "231213",
         "status": "active",
         "email": "celline.nathasya.lh@gmail.com"
     },
     {
         "id": "celinee",
         "name": "cell",
-        "balance": 2200000,
+        "balance": 125400000,
         "age": 15,
-        "pin": "1234",
+        "pin": "123456",
         "status": "active",
         "email": "celine.nathasya.lh@gmail.com"
     }
