@@ -10,8 +10,9 @@ def login():
         userid = False
         login_fail = 4
         system('cls')
-        print("{:=^50}".format('Welcome To Bank ITU'))
-        print("{:=^50}".format('Login'))
+        print("{:^50}".format('Welcome To Bank ITU'))
+        print("{:^50}".format('Login'))
+        print("="*50)
 
         user_id = input_string("ID    : ")
         user_pin = input_pin("PIN   : ")
@@ -78,10 +79,46 @@ def cek_saldo(data):
 
 def transfer(data):
     all_data = load_users()
-    print('======Transfer======')
+    system('cls')
+    print(f"{'Transfer':^50}")
+    print("="*50)
+    print()
+    print("Masukan kode Bank")
+    print("1. Bank")
+    print("2. Bank")
+    print("3. Bank")
+    print("4. Bank")
+    print("5. Bank")
+    print("6. Sesama Bank ITU")      
+    print()
+
+    try:
+        kode_bank = input_int('Masukan Kode Bank : ')
+        if kode_bank<0 or kode_bank>6:
+            print('tidak ditemukan Bank')
+            print('Kode Bank harus antara 1-6')
+            system('pause')
+    except:
+        print('Masukan Kode Bank dalam angka')
+        system('pause')
+
 
     target_transfer = input_string('ID penerima : ')
-    target = False
+    if 0<kode_bank<6:
+        for user in all_data:
+            if user.id == data.id:
+                nominal = input_int('Jumlah : Rp. ')
+                if nominal > data.balance:
+                    print('saldo anda tidak cukup')
+                else:
+                    print(f'anda melakukan transfer ke {target_transfer}')
+                    pin = input_pin('PIN : ')
+                    if pin == data.pin:
+                        user.balance = user.balance- nominal
+                        print('Transaksi Berhasil')
+
+    elif kode_bank == 6:
+        target = False
 
     if data.id == target_transfer:   #jika id sender dan receiver sama
         print("Anda tidak bisa melakukan Transfer ke Rekening sendiri")

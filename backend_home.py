@@ -17,20 +17,18 @@ def startupCheck():
 
 
 def print_menu():
-    print("""
-    1. Add rekening
-    2. Remove rekening
-    3. Edit rekening
-    4. Blok rekening
-    5. Un-blok rekening
-    6. Cek saldo user
-    7. Print list rekening
-    8. Cek history transaksi user
-    9. Add admin
-    10. Remove admin
-    11. List admin
-    12. Exit
-    """)
+    print("1. Add rekening")
+    print("2. Remove rekening")
+    print("3. Edit rekening")
+    print("4. Blok rekening")
+    print("5. Un-blok rekening")
+    print("6. Cek saldo user")
+    print("7. Print list rekening")
+    print("8. Cek history transfer user")
+    print("9. Add admin")
+    print("10. Remove admin")
+    print("11. List admin")
+    print("12. Exit")
 
 
 # selection
@@ -38,7 +36,11 @@ def main():
     login_admin()
     startupCheck()
     while True:
+        os.system('cls')
+        print("Selamat Datang...")
+        print()
         print_menu()
+        print()
         user_input = input_int("Masukkan pilihan anda: ")
         if user_input == 1:
             add_rekening()
@@ -55,7 +57,7 @@ def main():
         elif user_input == 7:
             print_list_rekening()
         elif user_input == 8:
-            history_transaksi_user()
+            history_transfer_user()
         elif user_input == 9:
             add_admin()
         elif user_input == 10:
@@ -63,10 +65,16 @@ def main():
         elif user_input == 11:
             list_admin()
         elif user_input == 12:
+            os.system('cls')
+            print("Terima kasih telah mempercayai Bank ITU sebagai bank pilihan anda\n")
+            os.system('pause')
             break
 
 def add_rekening():
+    os.system('cls')
     users = load_users()
+    print(f"{'Add rekening baru':^50}")
+    print("="*50)
     user_name = input_string("Nama lengkap: ")
     user_age = input_int("Umur: ")
     while True:
@@ -83,6 +91,9 @@ def add_rekening():
 
 
 def remove_rekening():
+    os.system('cls')
+    print(f"{'Remove rekening':^50}")
+    print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
@@ -90,9 +101,14 @@ def remove_rekening():
         print("Rekening berhasil dihapus")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 
 def edit_rekening():
+    os.system('cls')
+    print(f"{'Edit rekening':^50}")
+    print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id:")
     if user_id in [user.id for user in users]:
@@ -101,9 +117,14 @@ def edit_rekening():
         print("Rekening berhasil diedit")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 
 def blok_rekening():
+    os.system('cls')
+    print(f"{'Blok rekening':^50}")
+    print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
@@ -111,8 +132,13 @@ def blok_rekening():
         print("Blok berhasil")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 def unblok_rekening():
+    os.system('cls')
+    print(f"{'Unblock rekening':^50}")
+    print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
@@ -120,8 +146,13 @@ def unblok_rekening():
         print("Unblock berhasil")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 def cek_saldo_user():
+    os.system('cls')
+    print(f"{'Cek saldo pengguna':^50}")
+    print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id: ")
     if user_id in [user.id for user in users]:
@@ -130,32 +161,46 @@ def cek_saldo_user():
                 print(f"{user_id}'s balance = Rp {user.balance:,}")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 
 def print_list_rekening():
+    os.system('cls')
+    print(f"{'List rekening':^50}")
+    print("="*50)
     users = load_users()
-    print(users)
-    print(f"{'No':>4} {'Id':<10} {'Nama':<10}")
+    print(f"{'No':>4} {'Id':<20} {'Nama':<25}")
     for idx, user in enumerate(users)  :
-        print(f"{(idx+1):3}. {user.id:<10} {user.name:<10}")
+        print(f"{(idx+1):3}. {user.id:<20} {user.name:<25}")
+    print()
+    os.system('pause')
 
 
 
-def history_transaksi_user():
+def history_transfer_user():
+    os.system('cls')
+    print(f"{'History transfer pengguna':^50}")
+    print("="*50)
     with open ("History.json") as f:
         datas = json.load(f)
         user_id = input_string("id: ")
         print(f"{'Tanggal':^30} {'Status':6} {'Jumlah':^33} ")
         for data in datas:
             if data["ID Sender"] == user_id:
-                print(f"{data['date']:^30} {'kirim':6} {'Rp ':3}{data['nominal']:30,}")
+                print(f"{data['date']:^30} {'kirim':6} {'Rp ':3}{data['nominal']:30,.2f}")
             elif data["receiver"] == user_id:
-                print(f"{data['date']:^30} {'terima':6} {'Rp ':3}{data['nominal']:30,}")
+                print(f"{data['date']:^30} {'terima':6} {'Rp ':3}{data['nominal']:30,.2f}")
+    print()
+    os.system('pause')
 
 
 def login_admin():
+    os.system('cls')
     admins = load_admins()
     loop = True
+    print(f"{'Admin Login':^50}")
+    print("="*50)
     while loop:
         admin_id = input_string("Id: ")
         for admin in admins:
@@ -175,6 +220,9 @@ def login_admin():
 
 
 def add_admin():
+    os.system('cls')
+    print(f"{'Add admin baru':^50}")
+    print("="*50)
     admins = load_admins()
     admin_name = input_string("Nama lengkap: ")
     admin_age = input_int("Umur: ")
@@ -189,6 +237,9 @@ def add_admin():
     admin_add(admin)
 
 def remove_admin():
+    os.system('cls')
+    print(f"{'Remove admin':^50}")
+    print("="*50)
     admins = load_admins()
     admin_id = input_string("Masukkan Id: ")
     if admin_id in [admin.id for admin in admins]:
@@ -196,12 +247,19 @@ def remove_admin():
         print("Admin berhasil dihapus")
     else:
         print("Id tidak ditemukan")
+    print()
+    os.system('pause')
 
 def list_admin():
+    os.system('cls')
+    print(f"{'List admin':^50}")
+    print("="*50)
     admins = load_admins()
-    print(f"{'No':>4} {'Id':<10} {'Nama':<10}")
+    print(f"{'No':>4} {'Id':<20} {'Nama':<25}")
     for idx, admin in enumerate(admins)  :
-        print(f"{(idx+1):3}. {admin.id:<10} {admin.name:<10}")
+        print(f"{(idx+1):>3}. {admin.id:<20} {admin.name:<25}")
+    print()
+    os.system('pause')
 
 
 if __name__ == '__main__':

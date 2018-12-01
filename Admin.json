@@ -10,5 +10,11 @@
         "name": "kenichi :)",
         "age": 50,
         "password": "Kenichi1234"
+    },
+    {
+        "id": "cecel",
+        "name": "celine",
+        "age": 12,
+        "password": "1232ASDF"
     }
 ]

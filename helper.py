@@ -30,7 +30,6 @@ def input_password(desc):
         elif re.search('[A-Z]',password) is None:
             print("Pastikan terdapat huruf kapital")
         else:
-            print("Berhasil")
             break
     return password
 
@@ -42,7 +41,7 @@ def input_pin(desc):
         elif len(pin) != 6:
             print("Jumlah karakter pin harus 6")
         elif pin.isnumeric():
-            print("Berhasil")
+            print("Pin valid")
             break
         else:
             print("Pin harus angka")
@@ -66,9 +65,16 @@ def input_int(desc):
     """
     while True:
         try:
-            return int(input(desc))
-        except:
-            print("Maaf, terjadi kesalahan input. Silahkan ulangi lagi.")
+            user_input = int(input(desc))
+            if user_input == "":
+                print("Tidak boleh kosong")
+            elif user_input <= 0:
+                print("Angka tidak boleh lebih kecil dari 0")
+            else: 
+                break
+        except: 
+            print("Terjadi kesalahan input")
+    return user_input
 
 def input_string(desc):
     while True:

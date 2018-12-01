@@ -11,6 +11,7 @@ from helper import input_int, input_string
 
 
 def setor(user):
+    system('cls')
     amount = input_int('Jumlah Setoran : Rp. ')
     edit_balance(user.id, amount)
     user.balance += amount
@@ -19,6 +20,7 @@ def setor(user):
     system('pause')
 
 def tarik(user):
+    system('cls')
     amount = input_int('Jumlah Penarikan : Rp. ')
     if (user.balance - amount) < 0:
         print("Saldo tidak mencukupi")
@@ -37,13 +39,13 @@ def main():
         while True:     #user page
             system('cls')
             print("\nWelcome, {} ".format(user.name))
-            print('''     
-            1. Cek Saldo                      
-            2. Setor                            
-            3. Tarik                            
-            4. Transfer                       
-            5. Exit
-               ''')
+            print()
+            print("1. Cek Saldo")
+            print("2. Setor")
+            print("3. Tarik")
+            print("4. Transfer")
+            print("5. Exit")                      
+            print()  
             # try:
             user_choices = input_int('Your Choices : ')
             if user_choices == 1:
