@@ -1,14 +1,9 @@
 import json
 import getpass
 from os import system
-from model.user import User, load_users, add_user, remove_user, edit_user, block_user, edit_balance
+from model.user import load_users, edit_balance
 from front import login, cek_saldo, transfer
 from helper import input_int, input_string
-
-# def refresh_user(id):
-#     users = load_users()
-#     return list(filter(lambda user: user.id == id, users))[0]
-
 
 def setor(user):
     system('cls')
@@ -62,5 +57,5 @@ def main():
                 break   
             # except:
                 # print('Input Number')
-            # user = refresh_user(user)
+            
 main()

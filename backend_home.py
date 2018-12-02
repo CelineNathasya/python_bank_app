@@ -17,6 +17,8 @@ def startupCheck():
 
 
 def print_menu():
+    print("Selamat Datang...")
+    print()
     print("1. Add rekening")
     print("2. Remove rekening")
     print("3. Edit rekening")
@@ -37,8 +39,6 @@ def main():
     startupCheck()
     while True:
         os.system('cls')
-        print("Selamat Datang...")
-        print()
         print_menu()
         print()
         user_input = input_int("Masukkan pilihan anda: ")
@@ -88,6 +88,8 @@ def add_rekening():
     user_email = input_email("Email: ")
     user = User(user_id, user_name, user_pin, user_age, 0, "active", user_email)
     add_user(user)
+    print()
+    os.system('pause')
 
 
 def remove_rekening():
@@ -107,14 +109,14 @@ def remove_rekening():
 
 def edit_rekening():
     os.system('cls')
-    print(f"{'Edit rekening':^50}")
+    print(f"{'Edit pin rekening':^50}")
     print("="*50)
     users = load_users()
     user_id = input_string("Masukkan Id:")
     if user_id in [user.id for user in users]:
         user_new_pin = input_pin("Masukkan pin baru: ")
         edit_user(user_id, user_new_pin)
-        print("Rekening berhasil diedit")
+        print("Pin berhasil diedit")
     else:
         print("Id tidak ditemukan")
     print()
@@ -158,7 +160,7 @@ def cek_saldo_user():
     if user_id in [user.id for user in users]:
         for user in users:
             if user_id== user.id:
-                print(f"{user_id}'s balance = Rp {user.balance:,}")
+                print(f"{user_id}'s balance = Rp {user.balance:,.2f}")
     else:
         print("Id tidak ditemukan")
     print()
@@ -184,7 +186,7 @@ def history_transfer_user():
     print("="*50)
     with open ("History.json") as f:
         datas = json.load(f)
-        user_id = input_string("id: ")
+        user_id = input_string("Id: ")
         print(f"{'Tanggal':^30} {'Status':6} {'Jumlah':^33} ")
         for data in datas:
             if data["ID Sender"] == user_id:
@@ -199,12 +201,14 @@ def login_admin():
     os.system('cls')
     admins = load_admins()
     loop = True
+    login = False
     print(f"{'Admin Login':^50}")
     print("="*50)
     while loop:
         admin_id = input_string("Id: ")
         for admin in admins:
                 if admin.id == admin_id:
+                    login == True
                     admin_pass = input_password("Password: ")
                     if admin.password == admin_pass:
                         print("Logged in as admin")
@@ -212,11 +216,9 @@ def login_admin():
                         break
                     else: 
                         print("Password salah")
-                else: 
-                    print("Id tidak ditemukan")
-                    break
-        
-        
+        if login == False:
+            print("Id tidak ditemukan")
+            break
 
 
 def add_admin():

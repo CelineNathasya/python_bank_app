@@ -2,16 +2,16 @@
     {
         "id": "celine",
         "name": "celine nathasya",
-        "balance": 19800048053900,
+        "balance": 19800050550445,
         "age": 12,
-        "pin": "231213",
+        "pin": "123456",
         "status": "active",
         "email": "celline.nathasya.lh@gmail.com"
     },
     {
         "id": "celinee",
         "name": "cell",
-        "balance": 125400000,
+        "balance": 125600000,
         "age": 15,
         "pin": "121212",
         "status": "active",
@@ -27,15 +27,6 @@
         "email": "emailpalsu@gmail.com"
     },
     {
-        "id": "celinenathasya",
-        "name": "celinee",
-        "balance": 0,
-        "age": 15,
-        "pin": "123456",
-        "status": "active",
-        "email": "cel@"
-    },
-    {
         "id": "alala",
         "name": "cel",
         "balance": 0,
@@ -47,8 +38,17 @@
     {
         "id": "cececel",
         "name": "cel",
-        "balance": 0,
+        "balance": 200000,
         "age": 12,
+        "pin": "123456",
+        "status": "active",
+        "email": "emailpalsu@gmail.com"
+    },
+    {
+        "id": "aboi",
+        "name": "aboi",
+        "balance": 0,
+        "age": 18,
         "pin": "123456",
         "status": "active",
         "email": "@"

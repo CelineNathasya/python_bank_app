@@ -83,19 +83,15 @@ def transfer(data):
     print(f"{'Transfer':^50}")
     print("="*50)
     print()
+    list_bank = ["Bank INI", "Bank SINI", "Bank SITU", "Bank SANA", "Bank SONO", "Sesama Bank ITU"]
     print("Masukan kode Bank")
-    print("1. Bank")
-    print("2. Bank")
-    print("3. Bank")
-    print("4. Bank")
-    print("5. Bank")
-    print("6. Sesama Bank ITU")      
+    for idx, bank in enumerate(list_bank):
+        print(f"{idx+1}. {bank}")
     print()
-
     try:
         kode_bank = input_int('Masukan Kode Bank : ')
         if kode_bank<0 or kode_bank>6:
-            print('tidak ditemukan Bank')
+            print('Tidak ditemukan Bank')
             print('Kode Bank harus antara 1-6')
             system('pause')
     except:
@@ -109,53 +105,57 @@ def transfer(data):
             if user.id == data.id:
                 nominal = input_int('Jumlah : Rp. ')
                 if nominal > data.balance:
-                    print('saldo anda tidak cukup')
+                    print('Saldo anda tidak cukup')
                 else:
+                    desc_sender = "Anda melakukan transfer kepada\n    Bank:{} \n   Rekening: {}\n   Sebesar Rp {:,.2f}".format(list_bank[kode_bank-1],target_transfer,nominal)
                     print(f'anda melakukan transfer ke {target_transfer}')
                     pin = input_pin('PIN : ')
                     if pin == data.pin:
-                        user.balance = user.balance- nominal
+                        edit_balance(user.id, nominal)
                         print('Transaksi Berhasil')
+                        
+                        send_email(user.email, desc_sender)
+                        break
 
     elif kode_bank == 6:
         target = False
 
-    if data.id == target_transfer:   #jika id sender dan receiver sama
-        print("Anda tidak bisa melakukan Transfer ke Rekening sendiri")
-        system('pause')
-        return False
+        if data.id == target_transfer:   #jika id sender dan receiver sama
+            print("Anda tidak bisa melakukan Transfer ke Rekening sendiri")
+            system('pause')
+            return False
 
-    for x in all_data:
-        if target_transfer == x.id:
-            target = True
-    if target == False:
-        print('ID Tidak ditemukan')
-        system('pause')
-        return False
+        for x in all_data:
+            if target_transfer == x.id:
+                target = True
+        if target == False:
+            print('ID Tidak ditemukan')
+            system('pause')
+            return False
 
-    for user in all_data:
-        if user.id == data.id:
-            
-            nominal = input_int('Jumlah : Rp. ')
-            if nominal > data.balance:
-                print('Saldo anda tidak cukup')
-            else:
-                desc_sender = "Anda melakukan transfer kepada\nBank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(target_transfer,nominal)
-                desc_receiver = "Anda menerima transfer dari\nBank: ... \n   Rekening: {}\n   Sebesar Rp {:,}".format(user,nominal)
-                print(f'Anda melakukan transfer ke {target_transfer}')
-                pin = input_pin('PIN : ')
-                if not pin:
-                    print('transaksi dibatalkan')
-                elif pin == data.pin:
-                    edit_balance(user.id, -nominal)
-                    for user_target in all_data:
-                        if user_target.id == target_transfer:
-                            edit_balance(user_target.id, nominal)
-                            transaction_history(nominal,data.id,target_transfer)
-                    send_email(user.email, desc_sender)
-                    send_email(user_target.email, desc_receiver)
+        for user in all_data:
+            if user.id == data.id:
+                
+                nominal = input_int('Jumlah : Rp. ')
+                if nominal > data.balance:
+                    print('Saldo anda tidak cukup')
                 else:
-                    print('PIN anda salah')
+                    desc_sender = "Anda melakukan transfer kepada\n   Rekening: {}\n   Sebesar Rp {:,.2f}".format(target_transfer,nominal)
+                    desc_receiver = "Anda menerima transfer dari\n   Rekening: {}\n   Sebesar Rp {:,2f}".format(user,nominal)
+                    print(f'Anda melakukan transfer ke {target_transfer}')
+                    pin = input_pin('PIN : ')
+                    if not pin:
+                        print('transaksi dibatalkan')
+                    elif pin == data.pin:
+                        edit_balance(user.id, -nominal)
+                        for user_target in all_data:
+                            if user_target.id == target_transfer:
+                                edit_balance(user_target.id, nominal)
+                                transaction_history(nominal,data.id,target_transfer)
+                        send_email(user.email, desc_sender)
+                        send_email(user_target.email, desc_receiver)
+                    else:
+                        print('PIN anda salah')
 
     print() 
     system('pause')

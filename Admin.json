@@ -16,5 +16,11 @@
         "name": "celine",
         "age": 12,
         "password": "1232ASDF"
+    },
+    {
+        "id": "aboi",
+        "name": "aboi",
+        "age": 15,
+        "password": "Hello1234"
     }
 ]

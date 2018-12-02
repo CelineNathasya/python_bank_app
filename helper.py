@@ -21,6 +21,11 @@ def send_email(email, desc):
     print ('Email sent!')
 
 def input_password(desc):
+    """
+    request user password input with validation
+    will loop until valid input entered
+    :return:
+    """
     while True:
         password = passwordbox(desc)
         if len(password) < 8:
@@ -29,6 +34,8 @@ def input_password(desc):
             print("Pastikan terdapat angka")
         elif re.search('[A-Z]',password) is None:
             print("Pastikan terdapat huruf kapital")
+        elif re.search('[a-z]',password) is None:
+            print("Pastikan terdapat huruf kecil")
         else:
             break
     return password
@@ -53,7 +60,6 @@ def input_email(desc):
         if re.search('@', email) is None:
             print("Input valid email")
         else:
-            print("Berhasil")
             break
     return email
 
@@ -77,6 +83,11 @@ def input_int(desc):
     return user_input
 
 def input_string(desc):
+    """
+    request user input with validation that return a string
+    will loop until valid input entered
+    :return:
+    """
     while True:
         user_input = input(desc)
         if user_input == "":
