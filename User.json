@@ -2,7 +2,7 @@
     {
         "id": "celine",
         "name": "celine nathasya",
-        "balance": 19800050550445,
+        "balance": 19800051050445,
         "age": 12,
         "pin": "123456",
         "status": "active",
@@ -52,5 +52,32 @@
         "pin": "123456",
         "status": "active",
         "email": "@"
+    },
+    {
+        "id": "evan",
+        "name": "evan ",
+        "balance": 0,
+        "age": 16,
+        "pin": "123456",
+        "status": "active",
+        "email": "evan@gmail.com"
+    },
+    {
+        "id": "hartanto",
+        "name": "hartanto",
+        "balance": 0,
+        "age": 16,
+        "pin": "123456",
+        "status": "active",
+        "email": "htt@gmail.com"
+    },
+    {
+        "id": "leon",
+        "name": "leon",
+        "balance": 0,
+        "age": 18,
+        "pin": "123456",
+        "status": "active",
+        "email": "lawileon@gmail.com"
     }
 ]

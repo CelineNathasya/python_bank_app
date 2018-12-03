@@ -34,13 +34,13 @@ def admin_remove(id):
         f.write(json.dumps(convert_Admin_object_to_dictionary(admins), indent=4))
 
 
-# def edit_user(id, new_pin):
-#     users = load_admins()
-#     with open('User.json', 'w') as f:
-#         for user in users:
-#             if user.id == id:
-#                 user.pin = new_pin
-#         f.write(json.dumps(convert_Admin_object_to_dictionary(users), indent=4))
+def admin_edit(id, new_password):
+    admins = load_admins()
+    with open('Admin.json', 'w') as f:
+        for admin in admins:
+            if admin.id == id:
+                admin.pin = new_password
+        f.write(json.dumps(convert_Admin_object_to_dictionary(admins), indent=4))
 
 
 def load_admins():

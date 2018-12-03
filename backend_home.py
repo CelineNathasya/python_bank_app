@@ -2,7 +2,7 @@ import io
 import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
-from model.admin import Admin, load_admins, admin_add, admin_remove
+from model.admin import Admin, load_admins, admin_add, admin_remove, admin_edit
 from helper import input_password, input_int, input_string, input_email, input_pin
 
 def startupCheck():
@@ -30,7 +30,8 @@ def print_menu():
     print("9. Add admin")
     print("10. Remove admin")
     print("11. List admin")
-    print("12. Exit")
+    print("12. Edit admin")
+    print("13. Exit")
 
 
 # selection
@@ -65,6 +66,8 @@ def main():
         elif user_input == 11:
             list_admin()
         elif user_input == 12:
+            edit_admin()
+        elif user_input == 13:
             os.system('cls')
             print("Terima kasih telah mempercayai Bank ITU sebagai bank pilihan anda\n")
             os.system('pause')
@@ -88,7 +91,7 @@ def add_rekening():
     user_email = input_email("Email: ")
     user = User(user_id, user_name, user_pin, user_age, 0, "active", user_email)
     add_user(user)
-    print()
+    print('Rekening berhasil ditambahkan')
     os.system('pause')
 
 
@@ -237,6 +240,8 @@ def add_admin():
     admin_password = input_password("Password: ")
     admin = Admin(admin_id, admin_name, admin_password, admin_age)
     admin_add(admin)
+    print("Admin berhasil ditambahkan")
+    os.system('pause')
 
 def remove_admin():
     os.system('cls')
@@ -260,6 +265,21 @@ def list_admin():
     print(f"{'No':>4} {'Id':<20} {'Nama':<25}")
     for idx, admin in enumerate(admins)  :
         print(f"{(idx+1):>3}. {admin.id:<20} {admin.name:<25}")
+    print()
+    os.system('pause')
+
+def edit_admin():
+    os.system('cls')
+    print(f"{'Edit password admin':^50}")
+    print("="*50)
+    admins = load_admins()
+    admin_id = input_string("Masukkan Id:")
+    if admin_id in [admin.id for admin in admins]:
+        admin_new_password = input_password("Masukkan password baru: ")
+        admin_edit(admin_id, admin_new_password)
+        print("Password berhasil diedit")
+    else:
+        print("Id tidak ditemukan")
     print()
     os.system('pause')
 
