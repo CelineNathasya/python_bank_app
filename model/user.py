@@ -40,12 +40,17 @@ def remove_user(id):
         f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
 
-def edit_user(id, new_pin):
+def edit_user(id, desc, updates):
     users = load_users()
     with open('User.json', 'w') as f:
         for user in users:
             if user.id == id:
-                user.pin = new_pin
+                if desc == 1:
+                    user.pin = updates
+                elif desc == 2:
+                    user.name = updates
+                elif desc == 3:
+                    user.email == updates
         f.write(json.dumps(convert_User_object_to_dictionary(users), indent=4))
 
 def edit_balance(id, amount):

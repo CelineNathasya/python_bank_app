@@ -3,7 +3,7 @@ import json
 import os
 from model.user import User, load_users, add_user, remove_user, edit_user, block_user, unblock_user
 from model.admin import Admin, load_admins, admin_add, admin_remove, admin_edit
-from helper import input_password, input_int, input_string, input_email, input_pin
+from helper import input_password, input_int, input_string, input_email, input_pin,input_id
 
 def startupCheck():
     PATH = os.path.dirname(__file__)
@@ -15,7 +15,6 @@ def startupCheck():
         with io.open(os.path.join(PATH, 'User.json'), 'w') as db_file:
             db_file.write(json.dumps([]))
 
-
 def print_menu():
     print("Selamat Datang...")
     print()
@@ -26,7 +25,7 @@ def print_menu():
     print("5. Un-blok rekening")
     print("6. Cek saldo user")
     print("7. Print list rekening")
-    print("8. Cek history transfer user")
+    print("8. Cek history user")
     print("9. Add admin")
     print("10. Remove admin")
     print("11. List admin")
@@ -58,7 +57,7 @@ def main():
         elif user_input == 7:
             print_list_rekening()
         elif user_input == 8:
-            history_transfer_user()
+            history_user()
         elif user_input == 9:
             add_admin()
         elif user_input == 10:
@@ -81,12 +80,11 @@ def add_rekening():
     user_name = input_string("Nama lengkap: ")
     user_age = input_int("Umur: ")
     while True:
-        user_id = input_string("Id: ")
+        user_id = input_id("Id: ")
         if user_id not in [user.id for user in users]:
             break
         else:
             print("Id telah digunakan")
-    #validasi pin
     user_pin = input_pin("Pin: ")
     user_email = input_email("Email: ")
     user = User(user_id, user_name, user_pin, user_age, 0, "active", user_email)
@@ -100,7 +98,7 @@ def remove_rekening():
     print(f"{'Remove rekening':^50}")
     print("="*50)
     users = load_users()
-    user_id = input_string("Masukkan Id: ")
+    user_id = input_id("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         remove_user(user_id)
         print("Rekening berhasil dihapus")
@@ -112,14 +110,27 @@ def remove_rekening():
 
 def edit_rekening():
     os.system('cls')
-    print(f"{'Edit pin rekening':^50}")
+    print(f"{'Edit rekening':^50}")
     print("="*50)
     users = load_users()
-    user_id = input_string("Masukkan Id:")
+    user_id = input_id("Masukkan Id:")
     if user_id in [user.id for user in users]:
-        user_new_pin = input_pin("Masukkan pin baru: ")
-        edit_user(user_id, user_new_pin)
-        print("Pin berhasil diedit")
+        print("1. Edit pin")
+        print("2. Edit nama")
+        print("3. Edit email")
+        user_choice= input_int("Masukkan pilihan anda: ")
+        if user_choice == 1:
+            user_new_pin = input_pin("Masukkan pin baru: ")
+            edit_user(user_id, 1, user_new_pin)
+            print("Pin berhasil diedit")
+        elif user_choice == 2:
+            user_new_name = input_string("Masukkan nama baru: ")
+            edit_user(user_id, 2, user_new_name)
+            print("Nama berhasil diedit")
+        elif user_choice == 3:
+            user_new_email = input_email("Masukkan email baru: ")
+            edit_user(user_id, 3, user_new_email)
+            print("Email berhasil diedit")
     else:
         print("Id tidak ditemukan")
     print()
@@ -131,7 +142,7 @@ def blok_rekening():
     print(f"{'Blok rekening':^50}")
     print("="*50)
     users = load_users()
-    user_id = input_string("Masukkan Id: ")
+    user_id = input_id("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         block_user(user_id)
         print("Blok berhasil")
@@ -145,7 +156,7 @@ def unblok_rekening():
     print(f"{'Unblock rekening':^50}")
     print("="*50)
     users = load_users()
-    user_id = input_string("Masukkan Id: ")
+    user_id = input_id("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         unblock_user(user_id)
         print("Unblock berhasil")
@@ -159,7 +170,7 @@ def cek_saldo_user():
     print(f"{'Cek saldo pengguna':^50}")
     print("="*50)
     users = load_users()
-    user_id = input_string("Masukkan Id: ")
+    user_id = input_id("Masukkan Id: ")
     if user_id in [user.id for user in users]:
         for user in users:
             if user_id== user.id:
@@ -175,28 +186,41 @@ def print_list_rekening():
     print(f"{'List rekening':^50}")
     print("="*50)
     users = load_users()
-    print(f"{'No':>4} {'Id':<20} {'Nama':<25}")
+    print(f"{'No':>4} {'Id':<20} {'Nama':<25} {'Status':<8}")
     for idx, user in enumerate(users)  :
-        print(f"{(idx+1):3}. {user.id:<20} {user.name:<25}")
+        print(f"{(idx+1):3}. {user.id:<20} {user.name:<25} {user.status:<8}")
     print()
     os.system('pause')
 
 
 
-def history_transfer_user():
+def history_user():
     os.system('cls')
-    print(f"{'History transfer pengguna':^50}")
+    print(f"{'History pengguna':^50}")
     print("="*50)
-    with open ("History.json") as f:
-        datas = json.load(f)
-        user_id = input_string("Id: ")
-        print(f"{'Tanggal':^30} {'Status':6} {'Jumlah':^33} ")
-        for data in datas:
-            if data["ID Sender"] == user_id:
-                print(f"{data['date']:^30} {'kirim':6} {'Rp ':3}{data['nominal']:30,.2f}")
-            elif data["receiver"] == user_id:
-                print(f"{data['date']:^30} {'terima':6} {'Rp ':3}{data['nominal']:30,.2f}")
+    print("1. Transaksi")
+    print("2. Login")
     print()
+    user_input = input_int("Masukkan pilihan anda:")
+    user_id = input_id("Id: ")
+    if user_input == 1:
+        with open ("History.json") as f:
+            datas = json.load(f)
+            print(f"{'Tanggal':^30} {'Status':10} {'Jumlah':^33} ")
+            for data in datas:
+                if data["ID"] == user_id:
+                    print((f"{data['date']:^30} {data['desc']:10} {'Rp ':3}{data['nominal']:30,.2f}"))
+    elif user_input == 2:
+        with open ("history_login.json") as f:
+            logindatas = json.load(f)
+            print(f"{'tanggal':^30} {'Status':^10}")
+            for data in logindatas: 
+                if data["ID"] == user_id:
+                    print((f"{data['date']:^30} {data['Status']:^10}"))
+    else:
+        print("Terjadi kesalahan. Silahkan ulangi.")
+    
+
     os.system('pause')
 
 
@@ -221,7 +245,6 @@ def login_admin():
                         print("Password salah")
         if login == False:
             print("Id tidak ditemukan")
-            break
 
 
 def add_admin():

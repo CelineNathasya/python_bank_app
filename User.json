@@ -1,83 +1,29 @@
 [
     {
-        "id": "celine",
+        "id": "81180010",
         "name": "celine nathasya",
-        "balance": 19800051050445,
+        "balance": 19780247100969,
         "age": 12,
         "pin": "123456",
         "status": "active",
         "email": "celline.nathasya.lh@gmail.com"
     },
     {
-        "id": "celinee",
-        "name": "cell",
-        "balance": 125600000,
+        "id": "12345678",
+        "name": "asdf",
+        "balance": 127841681,
         "age": 15,
-        "pin": "121212",
+        "pin": "654321",
         "status": "active",
         "email": "celine.nathasya.lh@gmail.com"
     },
     {
-        "id": "kenichi",
-        "name": "Kenichi Xie",
-        "balance": 2000000000,
-        "age": 20,
-        "pin": "061098",
-        "status": "active",
-        "email": "emailpalsu@gmail.com"
-    },
-    {
-        "id": "alala",
-        "name": "cel",
-        "balance": 0,
-        "age": 15,
-        "pin": "123456",
-        "status": "active",
-        "email": "celine@"
-    },
-    {
-        "id": "cececel",
-        "name": "cel",
-        "balance": 200000,
-        "age": 12,
-        "pin": "123456",
-        "status": "active",
-        "email": "emailpalsu@gmail.com"
-    },
-    {
-        "id": "aboi",
-        "name": "aboi",
-        "balance": 0,
+        "id": "12345687",
+        "name": "nathasya",
+        "balance": 4210000,
         "age": 18,
         "pin": "123456",
         "status": "active",
-        "email": "@"
-    },
-    {
-        "id": "evan",
-        "name": "evan ",
-        "balance": 0,
-        "age": 16,
-        "pin": "123456",
-        "status": "active",
-        "email": "evan@gmail.com"
-    },
-    {
-        "id": "hartanto",
-        "name": "hartanto",
-        "balance": 0,
-        "age": 16,
-        "pin": "123456",
-        "status": "active",
-        "email": "htt@gmail.com"
-    },
-    {
-        "id": "leon",
-        "name": "leon",
-        "balance": 0,
-        "age": 18,
-        "pin": "123456",
-        "status": "active",
-        "email": "lawileon@gmail.com"
+        "email": "celine@gmail.com"
     }
 ]

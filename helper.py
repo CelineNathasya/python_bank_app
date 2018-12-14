@@ -48,7 +48,6 @@ def input_pin(desc):
         elif len(pin) != 6:
             print("Jumlah karakter pin harus 6")
         elif pin.isnumeric():
-            print("Pin valid")
             break
         else:
             print("Pin harus angka")
@@ -57,7 +56,7 @@ def input_pin(desc):
 def input_email(desc):
     while True:
         email = input_string(desc)
-        if re.search('@', email) is None:
+        if re.search('@gmail.com', email) is None:
             print("Input valid email")
         else:
             break
@@ -75,7 +74,7 @@ def input_int(desc):
             if user_input == "":
                 print("Tidak boleh kosong")
             elif user_input <= 0:
-                print("Angka tidak boleh lebih kecil dari 0")
+                print("Angka tidak boleh 0 atau lebih kecil dari 0")
             else: 
                 break
         except: 
@@ -93,5 +92,16 @@ def input_string(desc):
         if user_input == "":
             print("Tidak boleh kosong")
         else: 
+            break
+    return user_input
+
+def input_id(desc):
+    while True:
+        user_input = input(desc)
+        if len(user_input) != 8:
+            print("Pastikan jumlah karakter 8 ")
+        elif not re.match(r'^([\d]+)$',user_input):
+            print("Pastikan hanya terdapat angka")
+        else:
             break
     return user_input

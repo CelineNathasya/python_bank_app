@@ -2,16 +2,19 @@ import json
 import getpass
 from os import system
 from model.user import load_users, edit_balance
-from front import login, cek_saldo, transfer
+from front import login, cek_saldo, transfer, transaction_history
 from helper import input_int, input_string
+from terbilang import terbilang
 
 def setor(user):
     system('cls')
     amount = input_int('Jumlah Setoran : Rp. ')
     edit_balance(user.id, amount)
+    transaction_history(amount, "setor", user.id,'')
     user.balance += amount
     print("Penyetoran berhasil")
     print(f'Anda telah melakukan penyetoran sebesar Rp. {amount:,.2f}')
+    print(terbilang(amount),'Rupiah')
     system('pause')
 
 def tarik(user):
@@ -21,8 +24,10 @@ def tarik(user):
         print("Saldo tidak mencukupi")
     else :
         edit_balance(user.id, -amount) 
+        transaction_history(amount, "tarik", user.id,'')
         print("Penarikan berhasil")
         print(f'Anda telah melakukan penarikan sebesar Rp. {amount:,.2f}')
+        print(terbilang(amount),'Rupiah')
         user.balance -= amount
     system('pause')
 
@@ -42,7 +47,7 @@ def main():
             print("5. Exit")                      
             print()  
             # try:
-            user_choices = input_int('Your Choices : ')
+            user_choices = input_int('Masukkan pilihan anda : ')
             if user_choices == 1:
                 system('cls')
                 cek_saldo(user)
